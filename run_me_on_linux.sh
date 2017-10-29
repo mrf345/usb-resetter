@@ -2,6 +2,9 @@
 # Read me : this script will install usb-resetter requirements and your user into the
 # printing group. this script only meant to be run once before you run FQM for
 # the first time
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 # checking if pip exist
 pip_exi=`command -v pip2`
