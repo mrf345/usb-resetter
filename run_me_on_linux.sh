@@ -76,7 +76,7 @@ then
     echo "Error: must --install enviroment first .."
     exit 0
   fi
-  echo "##### Running usb-resetter 0.1 #####"
+  echo "##### Running usb-resetter 0.2 #####"
   if [ -f run.py ]
   then
     python run.py
