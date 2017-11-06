@@ -4,4 +4,4 @@
 #### with four sub-menus for filtering current, audio, mass storage, network and human interface
 ### > ~~Fix layout scaling on Windows~~ **[ Done ]**
 ### > Fix removing window whenever minimized
-### > Get full descriptor of device
+### > ~~Get full descriptor of device~~ **[ Done ]**

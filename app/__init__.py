@@ -2,14 +2,14 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
-from os import name
+from os import name, getuid
 from PySide.QtGui import QIcon, QWidget, QVBoxLayout, QHBoxLayout, QPushButton
 from PySide.QtGui import QLabel, QCheckBox, QLineEdit, QStatusBar, QComboBox
 from PySide.QtGui import QCheckBox, QPixmap, QMessageBox, QMenu, QAction
 from PySide.QtGui import QSystemTrayIcon, QApplication, QFont
 from PySide.QtCore import QThread, Signal, Slot, QSize
 from ex_functions import r_path, listd, resetit
-from sys import argv, exit
+from sys import argv, exit, platform
 from time import sleep
 from functools import partial
 
@@ -90,6 +90,7 @@ class UsbResetter(QWidget):
         self.setSb(mlayout)
         # functionalities
         self.set_list()
+        self.rootWarn()
         # initiation
         self.activateWindow()
         self.setLayout(mlayout)
@@ -319,6 +320,12 @@ class UsbResetter(QWidget):
             self.checkBox_5.setEnabled(False)
             self.comboBox.setEnabled(False)
         return True
+
+    def rootWarn(self):
+        if platform[:len(platform) - 1] == "linux" and getuid() != 0:
+            self.statusbar.setStyleSheet(self.s_error)
+            self.statusbar.showMessage(
+                "# Error: you must use sudo on Linux")
 
     @Slot(object)
     def handleStatusMessage(self, message):

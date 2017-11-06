@@ -38,15 +38,26 @@ def listd(tp=None, gui=None):
     for f in ftp:
         for ll in f:
             if gui:
-                dl = [0, 1, 2, 3, 7, 8]
-                dld = ["Unspecified", "Audio", "Network Card",
-                       "Human interface", "Printer", "Mass storage"]
-                d = "Unknown"
-                for desc in ll:
-                    for dd in dl:
-                        if usb.util.find_descriptor(desc, bInterfaceClass=dd):
-                            d = dld[dl.index(dd)]
-                            break
+                d = None
+                try:
+                    d = usb.util.get_string(ll, ll.iProduct)
+                except:
+                    pass
+                if d is None:
+                    dl = [0, 1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 19]
+                    dld = ["Unspecified", "Audio", "Network card",
+                           "Human interface", "Printer", "Mass storage",
+                           "Hub", "Network", "Smart card", "Content security",
+                           "Video device", "Audio or Video", "Billboard",
+                           "USB Type-C", "Wireless"]
+                    d = "Unknown"
+                    for desc in ll:
+                        for dd in dl:
+                            if usb.util.find_descriptor(desc,
+                                                        bInterfaceClass=dd
+                                                        ):
+                                d = dld[dl.index(dd)]
+                                break
                 vl.append(
                     str(d) + "," + str(
                         hex(ll.idVendor)) + "," + str(
