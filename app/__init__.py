@@ -2,7 +2,7 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
-from os import name, getuid
+from os import name
 from PySide.QtGui import QIcon, QWidget, QVBoxLayout, QHBoxLayout, QPushButton
 from PySide.QtGui import QLabel, QCheckBox, QLineEdit, QStatusBar, QComboBox
 from PySide.QtGui import QCheckBox, QPixmap, QMessageBox, QMenu, QAction
@@ -333,10 +333,12 @@ class UsbResetter(QWidget):
         return True
 
     def rootWarn(self):
-        if platform[:len(platform) - 1] == "linux" and getuid() != 0:
-            self.statusbar.setStyleSheet(self.s_error)
-            self.statusbar.showMessage(
-                "# Error: you must use sudo on Linux")
+        if platform[:len(platform) - 1] == "linux":
+            from os import getuid
+            if getuid() != 0:
+                self.statusbar.setStyleSheet(self.s_error)
+                self.statusbar.showMessage(
+                    "# Error: you must use sudo on Linux")
 
     @Slot(object)
     def handleStatusMessage(self, message):
@@ -350,7 +352,7 @@ class UsbResetter(QWidget):
 class SystemTrayIcon(QSystemTrayIcon):
     def __init__(self, icon, parent=None):
         QSystemTrayIcon.__init__(self, icon, parent)
-        self.setToolTip("usb-resetter 1.0 (Right\Left-Click)")
+        self.setToolTip("usb-resetter 1.0 (Left\Right-Click)")
         self.parent = parent
         self.activated.connect(self.toggleP)
         menu = QMenu(parent)
@@ -367,7 +369,8 @@ class SystemTrayIcon(QSystemTrayIcon):
         self.setContextMenu(menu)
 
     def toggleP(self, ar):
-        if ar == QSystemTrayIcon.ActivationReason.Context:
+        if ar in [QSystemTrayIcon.ActivationReason.Context,
+                  QSystemTrayIcon.ActivationReason.Trigger]:
             self.set_Freset()
         else:
             if self.parent.Hidden:
