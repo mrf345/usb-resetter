@@ -68,6 +68,8 @@ class UsbResetter(QWidget):
         self.P = UR_thread()
         self.thr_counter = 0
         self.Looping = None
+        self.Hidden = None
+        self.Fhidden = None
         self.s_error = "QStatusBar{color:red;font-weight:1000;}"
         self.s_loop = "QStatusBar{color:black;font-weight:1000;}"
         self.s_norm = "QStatusBar{color:blue;font-style:italic;"
@@ -186,12 +188,32 @@ class UsbResetter(QWidget):
         Amsg += "<b><a href='https://usb-resetter.github.io/'> "
         Amsg += "https://usb-resetter.github.io/ </a> </b></center>"
         Amsgb = "About usb-resetter"
-        return QMessageBox.about(
-            self,
-            Amsgb,
-            Amsg)
+        v = QMessageBox.about(self, Amsgb, Amsg)
+        v = str(v)
+        return v
 
     def closeEvent(self, event=None):
+        if self.Hidden is None:
+            response = QMessageBox.question(
+                self,
+                "Hide or close",
+                "Do you want to hide the application ?",
+                QMessageBox.Yes, QMessageBox.No)
+            if response == QMessageBox.Yes:
+                if event is not None:
+                    event.ignore()
+                self.Hidden = True
+                self.hide()
+            elif response == QMessageBox.No:
+                if event is not None:
+                    event.accept()
+                return self.exitEvent()
+            else:
+                return False
+        else:
+            return self.exitEvent()
+
+    def exitEvent(self):
         if self.P.isRunning():
             response = QMessageBox.question(
                 self,
@@ -200,15 +222,10 @@ class UsbResetter(QWidget):
                 QMessageBox.Yes, QMessageBox.No)
             if response == QMessageBox.Yes:
                 self.P.stop()
-                if event is not None:
-                    event.accept()
                 exit(0)
             else:
-                if event is not None:
-                    event.ignore()
+                return False
         else:
-            if event is not None:
-                event.accept()
             exit(0)
 
     def get_list(self):
@@ -289,16 +306,10 @@ class UsbResetter(QWidget):
             self.lineEdit.setEnabled(True)
         return True
 
-    def in_loop(self, stop=True, tray=False):
+    def in_loop(self, stop=True):
         if stop:
             if self.P.isRunning():
                 self.P.stop()
-            else:
-                if tray:
-                    self.statusbar.setStyleSheet(self.s_error)
-                    self.statusbar.showMessage(
-                        "# Error: no running loop alive to kill !")
-                    return True
             self.pushButton_3.setEnabled(False)
             self.pushButton_2.setEnabled(True)
             self.checkBox.setEnabled(True)
@@ -339,22 +350,31 @@ class UsbResetter(QWidget):
 class SystemTrayIcon(QSystemTrayIcon):
     def __init__(self, icon, parent=None):
         QSystemTrayIcon.__init__(self, icon, parent)
+        self.parent = parent
+        self.activated.connect(self.toggleP)
         menu = QMenu(parent)
         aboutAction = QAction("About", self)
         aboutAction.triggered.connect(parent.show_about)
-        self.stopAction = QAction("Stop loop", self)
-        self.stopAction.triggered.connect(partial(parent.in_loop, tray=True))
         quitAction = QAction("Exit", self)
-        quitAction.triggered.connect(parent.closeEvent)
-        menu.addAction(self.stopAction)
+        quitAction.triggered.connect(parent.exitEvent)
         menu.addSeparator()
         menu.addAction(aboutAction)
         menu.addAction(quitAction)
         self.setContextMenu(menu)
 
+    def toggleP(self, ar):
+        if ar != QSystemTrayIcon.ActivationReason.Context:
+            if self.parent.Hidden:
+                self.parent.show()
+                self.parent.Hidden = None
+            else:
+                self.parent.hide()
+                self.parent.Hidden = True
+
 
 def gui():
     app = QApplication(argv)
+    app.setQuitOnLastWindowClosed(False)
     mySW = UsbResetter()
     stray = SystemTrayIcon(mySW.favicon, mySW)
     mySW.show()
