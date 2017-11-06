@@ -50,7 +50,7 @@ def listd(tp=None, gui=None):
                            "Hub", "Network", "Smart card", "Content security",
                            "Video device", "Audio or Video", "Billboard",
                            "USB Type-C", "Wireless"]
-                    d = "Unknown"
+                    d = "Unspecified"
                     for desc in ll:
                         for dd in dl:
                             if usb.util.find_descriptor(desc,

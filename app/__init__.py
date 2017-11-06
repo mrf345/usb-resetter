@@ -107,7 +107,7 @@ class UsbResetter(QWidget):
         self.setMinimumWidth(350)
         self.setMaximumHeight(340)
         self.setMinimumHeight(340)
-        self.setWindowTitle("usb-resetter 0.2")
+        self.setWindowTitle("usb-resetter 1.0")
         self.setWindowIcon(self.favicon)
         self.show()
 
@@ -181,7 +181,7 @@ class UsbResetter(QWidget):
 
     def show_about(self):
         Amsg = "<center>All credit reserved to the author of "
-        Amsg += "usb-resetter version 0.2"
+        Amsg += "usb-resetter version 1.0"
         Amsg += ", This work is a free, open-source project licensed "
         Amsg += " under Mozilla Public License version 2.0 . <br><br>"
         Amsg += " visit us for more infos and how-tos :<br> "
@@ -350,26 +350,47 @@ class UsbResetter(QWidget):
 class SystemTrayIcon(QSystemTrayIcon):
     def __init__(self, icon, parent=None):
         QSystemTrayIcon.__init__(self, icon, parent)
+        self.setToolTip("usb-resetter 1.0 (Right\Left-Click)")
         self.parent = parent
         self.activated.connect(self.toggleP)
         menu = QMenu(parent)
+        self.fmenu = QMenu("Fast reset", parent)
+        self.fmenu.setToolTip("List of filtered devices to fast reset")
         aboutAction = QAction("About", self)
         aboutAction.triggered.connect(parent.show_about)
         quitAction = QAction("Exit", self)
         quitAction.triggered.connect(parent.exitEvent)
+        menu.addMenu(self.fmenu)
         menu.addSeparator()
         menu.addAction(aboutAction)
         menu.addAction(quitAction)
         self.setContextMenu(menu)
 
     def toggleP(self, ar):
-        if ar != QSystemTrayIcon.ActivationReason.Context:
+        if ar == QSystemTrayIcon.ActivationReason.Context:
+            self.set_Freset()
+        else:
             if self.parent.Hidden:
                 self.parent.show()
                 self.parent.Hidden = None
             else:
                 self.parent.hide()
                 self.parent.Hidden = True
+
+    def set_Freset(self):
+        self.fmenu.clear()
+        for l in self.parent.get_list():
+            ac = QAction(l, self)
+
+            def actdo(t):
+                if resetit(t):
+                    self.parent.statusbar.setStyleSheet(self.parent.s_norm)
+                    self.parent.statusbar.showMessage(
+                        "# Done: usb device got reset")
+                    return True
+                self.parent.statusbar.setStyleSheet(self.parent.s_error)
+            ac.triggered.connect(partial(actdo, l))
+            self.fmenu.addAction(ac)
 
 
 def gui():
