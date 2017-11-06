@@ -369,8 +369,9 @@ class SystemTrayIcon(QSystemTrayIcon):
         self.setContextMenu(menu)
 
     def toggleP(self, ar):
-        if ar in [QSystemTrayIcon.ActivationReason.Context,
-                  QSystemTrayIcon.ActivationReason.Trigger]:
+        actions = [QSystemTrayIcon.ActivationReason.Context,
+                   QSystemTrayIcon.ActivationReason.Trigger]
+        if ar in actions:
             self.set_Freset()
         else:
             if self.parent.Hidden:
