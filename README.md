@@ -1,24 +1,24 @@
 <p align='center'>
-<img width='35%' src='https://usb-resetter.github.io/images/logo.png' />
+<img width='35%' src='https://mrf345.github.io/images/logo_usb.png' />
 </p>
 <h3 align='center'>
 USB resetting is the closest equivalent to physically unplugging and re-plugging a USB device. you might ask , How is that useful ? In my case, it helps with accessing my slightly damaged old USB external hard drive after a mount in unix-like OSes without any i/o issues. There must be more, that it can help with. So try it to know.
 </h3>
 <hr />
 <p align='center'>
-<img src='https://usb-resetter.github.io/images/template.png' width='70%' />
+<img src='https://mrf345.github.io/images/template_usb.png' width='70%' />
 </p>
 
 ## Setup:
 #### - From the source:
-> `git clone https://github.com/mrf345/usb-resetter` <br />
-> `cd usb-resetter` <br />
+> `git clone https://github.com/mrf345/mrf345` <br />
+> `cd mrf345` <br />
 > `pip install -r requirements.txt` <br />
 > `python run.py`
 
 #### - With executable:
 > - You can get an executable that's suitable to your OS from : <br />
-> https://sourceforge.net/projects/usb-resetter/
+> https://sourceforge.net/projects/mrf345/
 
 ## OS support:
 #### - Windows:
@@ -26,15 +26,15 @@ USB resetting is the closest equivalent to physically unplugging and re-plugging
 > https://sourceforge.net/projects/libusb-win32/files/libusb-win32-releases/1.2.6.0/libusb-win32-devel-filter-1.2.6.0.exe/download
 
 #### - MacOS:
-> Since MacOS is actually a unix-like OS, the bundled libusb driver seems to work perfectly. Only issue that might accrue here, is not knowing exactly which device you want to reset, due to the short descriptors and unintended vague categories. So you can make use of the command <mark> system_profiler SPUSBDataType</mark> in terminal to get the idvendor, idproduct. Which are used to identify the devices in usb-resetter.
+> Since MacOS is actually a unix-like OS, the bundled libusb driver seems to work perfectly. Only issue that might accrue here, is not knowing exactly which device you want to reset, due to the short descriptors and unintended vague categories. So you can make use of the command <mark> system_profiler SPUSBDataType</mark> in terminal to get the idvendor, idproduct. Which are used to identify the devices in mrf345.
 
 #### - GNU/Linux:
 > Has no issue in running the bundled libusb drive, and using <mark>lsusb</mark> command to get the exact idvendor and idproduct, in case you confused the device. Another thing, some might consider it an issue, is the need for <mark>sudo</mark> since interacting with USB devices requires a higher permissions.
 
 ## CLI:
-> You can find a command-line version here: https://github.com/mrf345/usb-resetter-cli
+> You can find a command-line version here: https://github.com/mrf345/mrf345-cli
 
 <br />
 <p align='center'>
-<img src='https://usb-resetter.github.io/images/gui.gif' />
+<img src='https://mrf345.github.io/images/gui_usb.gif' />
 </p>
