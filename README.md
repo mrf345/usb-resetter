@@ -1,22 +1,13 @@
-<style>
-h3 {
-  text-align: center;
-}
-img {
-  border: solid thin #2d2fff;
-  border-radius: 10%;
-}
-</style>
-<center>
+<p align='center'>
 <img width='35%' src='https://usb-resetter.github.io/images/logo.png' />
-</center>
-
-### USB resetting is the closest equivalent to physically unplugging and re-plugging a USB device. you might ask , How is that useful ? In my case, it helps with accessing my slightly damaged old USB external hard drive after a mount in unix-like OSes without any i/o issues. There most be more, that it can help with. So try it to know.
-
+</p>
+<h3 align='center'>
+USB resetting is the closest equivalent to physically unplugging and re-plugging a USB device. you might ask , How is that useful ? In my case, it helps with accessing my slightly damaged old USB external hard drive after a mount in unix-like OSes without any i/o issues. There most be more, that it can help with. So try it to know.
+</h3>
 <hr />
-<center>
+<p align='center'>
 <img src='https://usb-resetter.github.io/images/template.png' width='70%' />
-</center>
+</p>
 
 ## Setup:
 #### - From the source:
@@ -41,6 +32,6 @@ img {
 > Has no issue in running the bundled libusb drive, and using <mark>lsusb</mark> command to get the exact idvendor and idproduct, in case you confused the device. Another thing, some might consider it an issue, is the need for <mark>sudo</mark> since interacting with USB devices requires a higher permissions.
 
 <br />
-<center>
+<p align='center'>
 <img src='https://usb-resetter.github.io/images/gui.gif' />
-</center>
+</p>
