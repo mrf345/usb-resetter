@@ -2,7 +2,7 @@
 <img width='35%' src='https://usb-resetter.github.io/images/logo.png' />
 </p>
 <h3 align='center'>
-USB resetting is the closest equivalent to physically unplugging and re-plugging a USB device. you might ask , How is that useful ? In my case, it helps with accessing my slightly damaged old USB external hard drive after a mount in unix-like OSes without any i/o issues. There most be more, that it can help with. So try it to know.
+USB resetting is the closest equivalent to physically unplugging and re-plugging a USB device. you might ask , How is that useful ? In my case, it helps with accessing my slightly damaged old USB external hard drive after a mount in unix-like OSes without any i/o issues. There must be more, that it can help with. So try it to know.
 </h3>
 <hr />
 <p align='center'>
@@ -30,6 +30,9 @@ USB resetting is the closest equivalent to physically unplugging and re-plugging
 
 #### - GNU/Linux:
 > Has no issue in running the bundled libusb drive, and using <mark>lsusb</mark> command to get the exact idvendor and idproduct, in case you confused the device. Another thing, some might consider it an issue, is the need for <mark>sudo</mark> since interacting with USB devices requires a higher permissions.
+
+## CLI:
+> You can find a command-line version here: https://github.com/mrf345/usb-resetter-cli
 
 <br />
 <p align='center'>
