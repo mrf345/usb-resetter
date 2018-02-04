@@ -18,7 +18,7 @@ USB resetting is the closest equivalent to physically unplugging and re-plugging
 
 #### - With executable:
 > - You can get an executable that's suitable to your OS from : <br />
-> https://sourceforge.net/projects/mrf345/
+> https://sourceforge.net/projects/usb-resetter/
 
 ## OS support:
 #### - Windows:
@@ -32,7 +32,7 @@ USB resetting is the closest equivalent to physically unplugging and re-plugging
 > Has no issue in running the bundled libusb drive, and using <mark>lsusb</mark> command to get the exact idvendor and idproduct, in case you confused the device. Another thing, some might consider it an issue, is the need for <mark>sudo</mark> since interacting with USB devices requires a higher permissions.
 
 ## CLI:
-> You can find a command-line version here: https://github.com/mrf345/mrf345-cli
+> You can find a command-line version here: https://github.com/mrf345/usb-resetter-cli
 
 <br />
 <p align='center'>
