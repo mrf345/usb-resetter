@@ -11,10 +11,10 @@ USB resetting is the closest equivalent to physically unplugging and re-plugging
 
 ## Setup:
 #### - From the source:
-> `git clone https://github.com/mrf345/mrf345` <br />
-> `cd mrf345` <br />
-> `pip install -r requirements.txt` <br />
-> `python run.py`
+> `git clone https://github.com/mrf345/usb-resetter.git` <br />
+> `cd usb-resetter` <br />
+> `pip2.7 install -r requirements.txt` <br />
+> `python2.7 run.py`
 
 #### - With executable:
 > - You can get an executable that's suitable to your OS from : <br />
