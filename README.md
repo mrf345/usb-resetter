@@ -26,10 +26,10 @@ USB resetting is the closest equivalent to physically unplugging and re-plugging
 > https://sourceforge.net/projects/libusb-win32/files/libusb-win32-releases/1.2.6.0/libusb-win32-devel-filter-1.2.6.0.exe/download
 
 #### - MacOS:
-> Since MacOS is actually a unix-like OS, the bundled libusb driver seems to work perfectly. Only issue that might accrue here, is not knowing exactly which device you want to reset, due to the short descriptors and unintended vague categories. So you can make use of the command <mark> system_profiler SPUSBDataType</mark> in terminal to get the idvendor, idproduct. Which are used to identify the devices in mrf345.
+> Since MacOS is actually a unix-like OS, the bundled libusb driver seems to work perfectly. Only issue that might accrue here, is not knowing exactly which device you want to reset, due to the short descriptors and unintended vague categories. So you can make use of the command `system_profiler SPUSBDataType` in terminal to get the idvendor, idproduct. Which are used to identify the devices in usb-resetter.
 
 #### - GNU/Linux:
-> Has no issue in running the bundled libusb drive, and using <mark>lsusb</mark> command to get the exact idvendor and idproduct, in case you confused the device. Another thing, some might consider it an issue, is the need for <mark>sudo</mark> since interacting with USB devices requires a higher permissions.
+> Has no issue in running the bundled libusb drive, and using `lsusb` command to get the exact idvendor and idproduct, in case you confused the device. Another thing, some might consider it an issue, is the need for `sudo` since interacting with USB devices requires a higher permissions.
 
 ## CLI:
 > You can find a command-line version here: https://github.com/mrf345/usb-resetter-cli
